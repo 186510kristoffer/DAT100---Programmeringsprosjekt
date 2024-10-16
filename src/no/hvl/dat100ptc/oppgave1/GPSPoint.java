@@ -65,7 +65,6 @@ public class GPSPoint {
 		String str;
 		
 		str = time + " (" + latitude + "," + longitude + ") " + elevation + "\n";
-		System.out.println(str);
 		return str;
 		
 		
