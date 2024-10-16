@@ -11,6 +11,7 @@ import no.hvl.dat100ptc.oppgave4.GPSComputer;
 import no.hvl.dat100ptc.TODO;
 
 public class ShowSpeed extends EasyGraphics {
+	
 			
 	private static int MARGIN = 50;
 	private static int BARHEIGHT = 100; 
@@ -40,20 +41,23 @@ public class ShowSpeed extends EasyGraphics {
 	public void showSpeedProfile(int ybase) {
 	    int x = MARGIN;  // Startposisjon på x-aksen
 	    double[] speeds = gpscomputer.speeds();  // Henter hastighetene mellom punktene
+	    double maxSpeed = gpscomputer.maxSpeed();  // Finn maksimal hastighet
 
 	    // Tegn stolper for hastigheter
 	    for (int i = 0; i < speeds.length; i++) {
-	        int barHeight = (int) Math.min(speeds[i], MAXBARHEIGHT);  // Skaler høyden til vinduet
+	        // Skaler hastigheten slik at den passer til BARHEIGHT
+	        int barHeight = (int) (speeds[i] * BARHEIGHT / maxSpeed);
 	        drawLine(x, ybase, x, ybase - barHeight);  // Tegn linje/stolpe for hastigheten
-	        x += 3;  // Flytt x-posisjonen
+	        x += 4;  // Flytt x-posisjonen
 	    }
 
 	    // Tegn gjennomsnittshastigheten som en grønn linje
 	    double avgSpeed = gpscomputer.averageSpeed();
 	    setColor(0, 255, 0);  // Sett fargen til grønn
-	    int avgLineHeight = ybase - (int) avgSpeed;  // Skaler gjennomsnittshastigheten
+	    int avgLineHeight = ybase - (int) (avgSpeed * BARHEIGHT / maxSpeed);  // Skaler gjennomsnittshastigheten
 	    drawLine(MARGIN, avgLineHeight, x, avgLineHeight);  // Tegn linjen langs hele x-aksen
 	}
+
 
 
 }
