@@ -9,22 +9,22 @@ public class GPSData {
 	protected int antall = 0;
 
 	public GPSData(int antall) {
-	    gpspoints = new GPSPoint[antall];  // Initialiserer arrayet
-	    this.antall = 0;  // Setter antall til 0
+	    gpspoints = new GPSPoint[antall];  	 // Initialiserer arrayet
+	    this.antall = 0; 					 // Setter antall til 0
 	}
 
 
 	public GPSPoint[] getGPSPoints() {
-	    return this.gpspoints;  // Returnerer hele arrayet av GPS-punkter
+	    return this.gpspoints;  			 // Returnerer hele arrayet av GPS-punkter
 	}
 
 	protected boolean insertGPS(GPSPoint gpspoint) {
-	    if (antall < gpspoints.length) {  // Sjekker om det er plass i arrayet
-	        gpspoints[antall] = gpspoint;  // Legger til GPS-punktet i arrayet
-	        antall++;  // Øker antall punkter som er lagret
-	        return true;  // Returnerer true når innsettingen er vellykket
+	    if (antall < gpspoints.length) {  	  // Sjekker om det er plass i arrayet
+	        gpspoints[antall] = gpspoint;     // Legger til GPS-punktet i arrayet
+	        antall++;  						  // Øker antall punkter som er lagret
+	        return true;                      // Returnerer true når innsettingen er vellykket
 	    }
-	    return false;  // Returnerer false hvis arrayet er fullt
+	    return false;                         // Returnerer false hvis arrayet er fullt
 	}
 
 
