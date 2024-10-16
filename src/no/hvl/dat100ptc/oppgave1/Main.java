@@ -4,8 +4,8 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		// TODO
-		
+		 GPSPoint sted = new GPSPoint(1, 2.0, 3.0, 5.0);
+		 sted.toString();
 	}
 
 }
