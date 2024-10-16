@@ -43,14 +43,22 @@ public class ShowProfile extends EasyGraphics {
 	}
 
 	public void showHeightProfile(int ybase) {
-		
-		int x = MARGIN; // første høyde skal tegnes ved MARGIN
-		int y;
-		
-		// TODO 
-		throw new UnsupportedOperationException(TODO.method());
-		
+	    int x = MARGIN;  // Start ved marginen
 
+	    for (int i = 0; i < gpspoints.length; i++) {
+	        // Hent høyden for hvert GPS-punkt
+	        int elevation = (int) gpspoints[i].getElevation();
+
+	        // Skaler høyden til vinduets maksimale høyde (500 meter som maks)
+	        int barHeight = Math.min(elevation, MAXBARHEIGHT);
+
+	        // Tegn en stolpe for hvert punkt
+	        drawLine(x, ybase, x, ybase - barHeight);
+
+	        // Flytt x-posisjonen for neste stolpe
+	        x += 3;  // Avstand mellom stolpene, kan justeres etter behov
+	    }
 	}
+
 
 }
