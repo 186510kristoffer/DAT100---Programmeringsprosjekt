@@ -64,10 +64,22 @@ public class ShowRoute extends EasyGraphics {
 
 	public void showRouteMap(int ybase) {
 
-		// TODO 
-		throw new UnsupportedOperationException(TODO.method());
-		
+	    // Setter farge for ruten
+	    setColor(0, 0, 255);  // Blå farge for ruten
+
+	    for (int i = 0; i < gpspoints.length - 1; i++) {
+	        // Konverter bredde- og lengdegrader til pikselverdier på kartet
+	        int x1 = MARGIN + (int) ((gpspoints[i].getLongitude() - minlon) * xstep);
+	        int y1 = ybase - (int) ((gpspoints[i].getLatitude() - minlat) * ystep);
+
+	        int x2 = MARGIN + (int) ((gpspoints[i + 1].getLongitude() - minlon) * xstep);
+	        int y2 = ybase - (int) ((gpspoints[i + 1].getLatitude() - minlat) * ystep);
+
+	        // Tegn linje mellom hvert par av GPS-punkter
+	        drawLine(x1, y1, x2, y2);
+	    }
 	}
+
 
 	public void showStatistics() {
 
