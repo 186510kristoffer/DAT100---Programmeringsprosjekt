@@ -104,17 +104,13 @@ public class GPSUtils {
 	
 	public static double speed(GPSPoint gpspoint1, GPSPoint gpspoint2) {
 
-		int secs = 10;
+		int secs = gpspoint2.getTime() - gpspoint1.getTime();
 		double speed;
 		double distance=distance(gpspoint1, gpspoint2);
 		
 		speed=distance/secs;
 		return speed;
 		
-		
-		/* som beregninger gjennomsnittshastighet i m/s om man beveger seg fra punktet gitt ved gpspoint1 til punktet gpspoint2.
-		Hint: Bruk metoden distance fra d) samt get-metode(r) på GPSPoint-objekt.*/ 
-
 	}
 
 	public static String formatTime(int secs) {
@@ -122,7 +118,7 @@ public class GPSUtils {
 		String timestr;
 		String TIMESEP = ":";
 
-		   int timer = secs / 3600;
+		   	int timer = secs / 3600;
 		    int minuter = (secs % 3600) / 60;
 		    int sekunder = secs % 60;
 		    
@@ -135,13 +131,9 @@ public class GPSUtils {
 	private static int TEXTWIDTH = 10;
 
 	public static String formatDouble(double d) {
-
 		String str;
-
-		
-		throw new UnsupportedOperationException(TODO.method());
-		
-		// TODO
+		str = String.format("%.2f", d);
+		return String.format("%10s", str);
 		
 	}
 }
