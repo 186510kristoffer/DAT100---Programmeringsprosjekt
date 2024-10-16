@@ -65,7 +65,7 @@ public class GPSUtils {
 	public static double distance(GPSPoint gpspoint1, GPSPoint gpspoint2) {
 
 		float R = 6371000;
-		double d;
+
 		double latitude1, longitude1, latitude2, longitude2;
 
 		latitude1 = Math.toRadians(gpspoint1.getLatitude());
@@ -79,14 +79,15 @@ public class GPSUtils {
 		
 		double a = Math.pow((Math.sin(Delatitude/2)), 2) + Math.cos(latitude1) * Math.cos(latitude2) * Math.pow((Math.sin(Delongitude/2)), 2);
 		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-		return d =R * c;
+		double d = R * c;
+		return d;
 	}
 	
 	private static double compute_a(double phi1, double phi2, double deltaphi, double deltadelta) {
 	
 		throw new UnsupportedOperationException(TODO.method());
 		
-		// TODO 
+		
 
 	}
 
@@ -103,12 +104,16 @@ public class GPSUtils {
 	
 	public static double speed(GPSPoint gpspoint1, GPSPoint gpspoint2) {
 
-		int secs;
+		int secs = 10;
 		double speed;
+		double distance=distance(gpspoint1, gpspoint2);
 		
-		throw new UnsupportedOperationException(TODO.method());
+		speed=distance/secs;
+		return speed;
 		
-		// TODO
+		
+		/* som beregninger gjennomsnittshastighet i m/s om man beveger seg fra punktet gitt ved gpspoint1 til punktet gpspoint2.
+		Hint: Bruk metoden distance fra d) samt get-metode(r) på GPSPoint-objekt.*/ 
 
 	}
 
@@ -117,11 +122,15 @@ public class GPSUtils {
 		String timestr;
 		String TIMESEP = ":";
 
-		throw new UnsupportedOperationException(TODO.method());
-		
-		// TODO 
-		
-	}
+		   int timer = secs / 3600;
+		    int minuter = (secs % 3600) / 60;
+		    int sekunder = secs % 60;
+		    
+		     timestr = String.format("%02d%s%02d%s%02d", timer, TIMESEP, minuter, TIMESEP, sekunder);
+		    
+		    return String.format("%10s", timestr);
+		}
+	
 	
 	private static int TEXTWIDTH = 10;
 
