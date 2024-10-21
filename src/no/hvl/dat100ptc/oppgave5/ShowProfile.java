@@ -43,6 +43,7 @@ public class ShowProfile extends EasyGraphics {
 	}
 
 	public void showHeightProfile(int ybase) {
+		setColor(0, 0, 255);
 	    int x = MARGIN;  // Start ved marginen
 
 	    for (int i = 0; i < gpspoints.length; i++) {

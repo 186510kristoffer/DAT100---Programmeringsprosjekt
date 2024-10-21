@@ -79,14 +79,11 @@ public class GPSComputer {
 	}
 
 	public double averageSpeed() {
-
-		double average = 0;
-
-		double totalDistance = totalDistance();
-		int totalTime = totalTime();
-
-		return (totalDistance / totalTime) * 3.6;
+	    double totalDistance = totalDistance(); // Beregner total distanse i meter
+	    int totalTime = totalTime(); // Beregner total tid i sekunder
+	    return totalDistance / totalTime; // Behold gjennomsnittshastigheten i m/s
 	}
+
 
 	public static final double MS = 2.23;
 

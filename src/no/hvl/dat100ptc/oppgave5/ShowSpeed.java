@@ -30,34 +30,55 @@ public class ShowSpeed extends EasyGraphics {
 	}
 
 	public void run() {
+	    int numSpeeds = gpscomputer.speeds().length;  // Henter antall hastigheter
+	    
+	    // Beregn bredde på vinduet: 2 * MARGIN for venstre og høyre margin + 2 * numSpeeds for bredden til stolpene
+	    int windowWidth = 2 * MARGIN + 3 * numSpeeds;
 
-		makeWindow("Speed profile", 
-				2 * MARGIN + 
-				2 * gpscomputer.speeds().length, 2 * MARGIN + BARHEIGHT);
-		
-		showSpeedProfile(MARGIN + BARHEIGHT);
+	    // Sett opp høyden på vinduet basert på BARHEIGHT og MARGIN
+	    int windowHeight = 2 * MARGIN + BARHEIGHT;
+
+	    // Lag vinduet med justert bredde og høyde
+	    makeWindow("Speed profile", windowWidth, windowHeight);
+	    
+	    // Tegn hastighetsprofilen
+	    showSpeedProfile(MARGIN + BARHEIGHT);
 	}
+
 	
 	public void showSpeedProfile(int ybase) {
 	    int x = MARGIN;  // Startposisjon på x-aksen
 	    double[] speeds = gpscomputer.speeds();  // Henter hastighetene mellom punktene
 	    double maxSpeed = gpscomputer.maxSpeed();  // Finn maksimal hastighet
+	    double avgSpeed = gpscomputer.averageSpeed();  // Finn gjennomsnittshastigheten
+
+	    System.out.println("Max Speed: " + maxSpeed);
+	    System.out.println("Avg Speed: " + avgSpeed);
 
 	    // Tegn stolper for hastigheter
 	    for (int i = 0; i < speeds.length; i++) {
 	        // Skaler hastigheten slik at den passer til BARHEIGHT
 	        int barHeight = (int) (speeds[i] * BARHEIGHT / maxSpeed);
+	        System.out.println("Speed[" + i + "] = " + speeds[i] + ", BarHeight = " + barHeight);
 	        drawLine(x, ybase, x, ybase - barHeight);  // Tegn linje/stolpe for hastigheten
-	        x += 4;  // Flytt x-posisjonen
+	        x += 3;  // Flytt x-posisjonen
 	    }
 
 	    // Tegn gjennomsnittshastigheten som en grønn linje
-	    double avgSpeed = gpscomputer.averageSpeed();
 	    setColor(0, 255, 0);  // Sett fargen til grønn
-	    int avgLineHeight = ybase - (int) (avgSpeed * BARHEIGHT / maxSpeed);  // Skaler gjennomsnittshastigheten
-	    drawLine(MARGIN, avgLineHeight, x, avgLineHeight);  // Tegn linjen langs hele x-aksen
+
+	    // Beregn riktig høyde for gjennomsnittshastigheten, skalert på samme måte som hastighetene
+	    int avgLineHeight = (int) (avgSpeed * BARHEIGHT / maxSpeed);
+	    System.out.println("Avg Line Height: " + avgLineHeight);
+
+	    // Kontroller at gjennomsnittshastigheten ikke er for lav eller for høy
+	    if (avgLineHeight > 0 && avgLineHeight <= BARHEIGHT) {
+	        // Tegn linjen langs hele x-aksen på riktig høyde
+	        drawLine(MARGIN, ybase - avgLineHeight, x, ybase - avgLineHeight);
+	    } else {
+	        System.out.println("Gjennomsnittslinjen er utenfor visningsområdet.");
+	    }
+
 	}
-
-
 
 }
